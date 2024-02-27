@@ -8,5 +8,17 @@ mvn -pl system liberty:run
 mvn -pl inventory liberty:run
 
 
+mvn package # to build the war
+docker-compose up # to start
+```
+
+to run so that you can change the code
+
+```
+mvn -pl system liberty:dev
+
+mvn -pl inventory liberty:dev
+
 ```
 the data storage should be per microservice!
+(or not)
