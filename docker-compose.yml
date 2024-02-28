@@ -12,11 +12,9 @@
      volumes:
      - ./pgdata:/var/lib/postgresql/data
 
-   system:
-    container_name: system
-    build: system
-    #  depends_on:
-    #    - db
+   clearingcost:
+    container_name: clearingcost
+    build: clearingcost
     ports:
       - 9080:9080
     #  environment:
@@ -26,10 +24,9 @@
    inventory:
     container_name: inventory
     build: inventory
-    #  depends_on:
-    #    - db
     ports:
       - 9081:9081
+
     #  environment:
     #    DATASOURCE_URL: jdbc:postgresql://db:5432/test
     #    DATASOURCE_USERNAME: example

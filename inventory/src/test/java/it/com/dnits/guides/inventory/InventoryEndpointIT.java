@@ -49,7 +49,7 @@ public class InventoryEndpointIT {
         // end::systemServiceIp[]
 
         invUrl = "http://localhost" + ":" + invServPort + "/inventory/systems/";
-        sysUrl = "http://localhost" + ":" + sysServPort + "/system/properties/";
+        sysUrl = "http://localhost" + ":" + sysServPort + "/clearingcost/properties/";
 
         client = ClientBuilder.newBuilder().hostnameVerifier(new HostnameVerifier() {
             public boolean verify(String hostname, SSLSession session) {
