@@ -9,13 +9,13 @@
  * SPDX-License-Identifier: EPL-2.0
  *******************************************************************************/
 // end::copyright[]
-package io.openliberty.guides.system;
+package io.openliberty.guides.clearingcost;
 
 // JAX-RS
 import jakarta.ws.rs.core.Application;
 import jakarta.ws.rs.ApplicationPath;
 
-@ApplicationPath("system")
+@ApplicationPath("clearingcost")
 public class SystemApplication extends Application {
 
 }

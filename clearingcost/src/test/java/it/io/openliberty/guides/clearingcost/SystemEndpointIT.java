@@ -9,7 +9,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *******************************************************************************/
 // end::copyright[]
-package it.io.openliberty.guides.system;
+package it.io.openliberty.guides.clearingcost;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -34,7 +34,7 @@ public class SystemEndpointIT {
     @BeforeAll
     public static void oneTimeSetup() {
         String nodePort = System.getProperty("clearingcost.http.port");
-        clusterUrl = "http://localhost:" + nodePort + "/system/properties/";
+        clusterUrl = "http://localhost:" + nodePort + "/clearingcost/properties/";
     }
 
     @BeforeEach

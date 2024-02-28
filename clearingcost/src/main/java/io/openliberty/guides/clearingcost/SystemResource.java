@@ -9,7 +9,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *******************************************************************************/
 // end::copyright[]
-package io.openliberty.guides.system;
+package io.openliberty.guides.clearingcost;
 
 import java.util.Properties;
 
