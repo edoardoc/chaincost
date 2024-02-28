@@ -33,7 +33,7 @@ public class SystemEndpointIT {
 
     @BeforeAll
     public static void oneTimeSetup() {
-        String nodePort = System.getProperty("system.http.port");
+        String nodePort = System.getProperty("clearingcost.http.port");
         clusterUrl = "http://localhost:" + nodePort + "/system/properties/";
     }
 

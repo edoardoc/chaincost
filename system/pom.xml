@@ -84,7 +84,7 @@
                 <version>3.0.0</version>
                 <configuration>
                     <systemPropertyVariables>
-                        <system.http.port>${liberty.var.default.http.port}</system.http.port>
+                        <clearingcost.http.port>${liberty.var.default.http.port}</clearingcost.http.port>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
