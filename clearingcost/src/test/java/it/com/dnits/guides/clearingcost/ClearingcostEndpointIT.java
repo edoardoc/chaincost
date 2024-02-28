@@ -9,7 +9,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *******************************************************************************/
 // end::copyright[]
-package it.com.dnits.guides.system;
+package it.com.dnits.guides.clearingcost;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

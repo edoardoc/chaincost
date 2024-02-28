@@ -5,7 +5,7 @@ to run the services in your local java environment for development / debugging, 
 ```
 
 mvn -pl inventory liberty:run
-
+mvn -pl clearingcost liberty:run
 
 mvn package # to build the war
 docker-compose up # to start
@@ -14,9 +14,11 @@ docker-compose up # to start
 to run a service so that you can change the code
 
 ```
-mvn -pl system liberty:dev
-
 mvn -pl inventory liberty:dev
+mvn -pl clearingcost liberty:dev
+
+mvn -pl inventory liberty:devc # runs in docker
+mvn -pl clearingcost liberty:devc # runs in docker
 
 ```
 the data storage should be per microservice!
@@ -34,3 +36,6 @@ endpoint(s) managing clearing cost matrix table
 - Update 
 - Delete
 - Read (returns cost for a country)
+
+
+TODO: rimuovi web-inf, ecc
