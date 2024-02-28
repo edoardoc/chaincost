@@ -25,7 +25,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class SystemEndpointIT {
+public class ClearingcostEndpointIT {
 
     private static String clusterUrl;
 
@@ -33,8 +33,8 @@ public class SystemEndpointIT {
 
     @BeforeAll
     public static void oneTimeSetup() {
-        String nodePort = System.getProperty("system.http.port");
-        clusterUrl = "http://localhost:" + nodePort + "/system/properties/";
+        String nodePort = System.getProperty("clearingcost.http.port");
+        clusterUrl = "http://localhost:" + nodePort + "/clearingcost/properties/";
     }
 
     @BeforeEach

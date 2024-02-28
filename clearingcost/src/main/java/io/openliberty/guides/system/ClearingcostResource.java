@@ -11,11 +11,23 @@
 // end::copyright[]
 package io.openliberty.guides.system;
 
+import java.util.Properties;
+
+// CDI
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.ws.rs.GET;
 // JAX-RS
-import jakarta.ws.rs.core.Application;
-import jakarta.ws.rs.ApplicationPath;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 
-@ApplicationPath("system")
-public class SystemApplication extends Application {
+@RequestScoped
+@Path("properties")
+public class ClearingcostResource {
 
+  @GET
+  @Produces(MediaType.APPLICATION_JSON)
+  public Properties getProperties() {
+    return System.getProperties();
+  }
 }
