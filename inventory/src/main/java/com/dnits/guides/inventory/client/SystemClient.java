@@ -32,7 +32,7 @@ public class SystemClient {
     private final String PROTOCOL = "http";
 
     @Inject
-    @ConfigProperty(name = "system.http.port", defaultValue = "9080")
+    @ConfigProperty(name = "clearingcost.http.port", defaultValue = "9080")
     String systemHttpPort;
 
     // Wrapper function that gets properties

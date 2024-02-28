@@ -42,7 +42,7 @@ public class InventoryEndpointIT {
     public static void oneTimeSetup() {
 
         String invServPort = System.getProperty("inventory.http.port");
-        String sysServPort = System.getProperty("system.http.port");
+        String sysServPort = System.getProperty("clearingcost.http.port");
 
         // tag::systemServiceIp[]
         systemServiceIp = System.getProperty("system.ip");

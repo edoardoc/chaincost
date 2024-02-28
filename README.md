@@ -3,7 +3,7 @@ Credit Card Cost API exercise
 
 to run the services in your local java environment for development / debugging, in the main dir:
 ```
-mvn -pl system liberty:run
+mvn -pl clearingcost liberty:run
 
 mvn -pl inventory liberty:run
 
@@ -22,6 +22,8 @@ mvn -pl inventory liberty:dev
 ```
 the data storage should be per microservice!
 (or not)
+
+# MSSAPI "Microservices API"
 
 endpoint /payment-cards-cost 
 1 - the full card number is invoked to the endpoint  
