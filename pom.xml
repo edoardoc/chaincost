@@ -11,7 +11,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>system</module>
+        <module>clearingcost</module>
         <module>inventory</module>
     </modules>
 
