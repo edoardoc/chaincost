@@ -3,7 +3,6 @@ Credit Card Cost API exercise
 
 to run the services in your local java environment for development / debugging, in the main dir:
 ```
-mvn -pl clearingcost liberty:run
 
 mvn -pl inventory liberty:run
 
@@ -12,7 +11,7 @@ mvn package # to build the war
 docker-compose up # to start
 ```
 
-to run so that you can change the code
+to run a service so that you can change the code
 
 ```
 mvn -pl system liberty:dev
