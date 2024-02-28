@@ -9,7 +9,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *******************************************************************************/
 // end::copyright[]
-package io.openliberty.guides.inventory.client;
+package com.dnits.guides.inventory.client;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
@@ -73,4 +73,3 @@ public class SystemClient {
         }
     }
 }
-

@@ -9,7 +9,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *******************************************************************************/
 // end::copyright[]
-package io.openliberty.guides.inventory;
+package com.dnits.guides.inventory;
 
 import java.util.Properties;
 import jakarta.enterprise.context.RequestScoped;
@@ -21,8 +21,8 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import io.openliberty.guides.inventory.model.InventoryList;
-import io.openliberty.guides.inventory.client.SystemClient;
+import com.dnits.guides.inventory.model.InventoryList;
+import com.dnits.guides.inventory.client.SystemClient;
 
 @RequestScoped
 @Path("/systems")

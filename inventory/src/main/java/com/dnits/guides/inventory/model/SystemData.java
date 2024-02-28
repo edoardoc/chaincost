@@ -1,4 +1,4 @@
-package io.openliberty.guides.inventory.model;
+package com.dnits.guides.inventory.model;
 
 import java.util.Properties;
 

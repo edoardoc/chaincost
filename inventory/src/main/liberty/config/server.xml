@@ -18,7 +18,7 @@
       id="defaultHttpEndpoint" host="*" />
   <!-- end::httpEndpoint[] -->
 
-  <webApplication location="guide-containerize-inventory.war" contextRoot="/">
+  <webApplication location="mssapi-inventory.war" contextRoot="/">
 
   </webApplication>
 

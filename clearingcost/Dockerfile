@@ -9,7 +9,7 @@ LABEL \
   org.opencontainers.image.authors="Your Name" \
   org.opencontainers.image.vendor="Open Liberty" \
   org.opencontainers.image.url="local" \
-  org.opencontainers.image.source="https://github.com/OpenLiberty/guide-containerize" \
+  org.opencontainers.image.source="https://github.com/OpenLiberty/mssapi" \
   org.opencontainers.image.version="$VERSION" \
   org.opencontainers.image.revision="$REVISION" \
   vendor="Open Liberty" \
@@ -29,7 +29,7 @@ RUN features.sh
 # end::features[]
 
 # tag::copy-war[]
-COPY --chown=1001:0 target/guide-containerize-clearingcost.war /config/apps
+COPY --chown=1001:0 target/mssapi-clearingcost.war /config/apps
 # end::copy-war[]
 
 RUN configure.sh

@@ -10,7 +10,7 @@ LABEL \
   org.opencontainers.image.authors="Your Name" \
   org.opencontainers.image.vendor="Open Liberty" \
   org.opencontainers.image.url="local" \
-  org.opencontainers.image.source="https://github.com/OpenLiberty/guide-containerize" \
+  org.opencontainers.image.source="https://github.com/OpenLiberty/mssapi" \
   org.opencontainers.image.version="$VERSION" \
   org.opencontainers.image.revision="$REVISION" \
   vendor="Open Liberty" \
@@ -41,7 +41,7 @@ RUN features.sh
 COPY --chown=1001:0 \
 # end::war-userID[]
     # tag::inventory-war[]
-    target/guide-containerize-inventory.war \
+    target/mssapi-inventory.war \
     # end::inventory-war[]
     # tag::config-apps[]
     /config/apps

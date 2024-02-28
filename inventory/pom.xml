@@ -6,8 +6,8 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.openliberty.guides</groupId>
-    <artifactId>guide-containerize-inventory</artifactId>
+    <groupId>com.dnits.guides</groupId>
+    <artifactId>mssapi-inventory</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 

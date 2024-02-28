@@ -13,7 +13,7 @@
   <httpEndpoint httpPort="${default.http.port}" httpsPort="${default.https.port}"
       id="defaultHttpEndpoint" host="*" />
 
-  <webApplication location="guide-containerize-clearingcost.war" contextRoot="/">
+  <webApplication location="mssapi-clearingcost.war" contextRoot="/">
   
   </webApplication>
 

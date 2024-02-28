@@ -9,7 +9,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *******************************************************************************/
 // end::copyright[]
-package io.openliberty.guides.inventory;
+package com.dnits.guides.inventory;
 
 // JAX-RS
 import jakarta.ws.rs.ApplicationPath;

@@ -9,7 +9,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *******************************************************************************/
 // end::copyright[]
-package io.openliberty.guides.inventory.model;
+package com.dnits.guides.inventory.model;
 
 import java.util.List;
 

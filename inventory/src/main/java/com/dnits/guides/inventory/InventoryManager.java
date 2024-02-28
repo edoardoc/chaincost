@@ -9,7 +9,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *******************************************************************************/
 // end::copyright[]
-package io.openliberty.guides.inventory;
+package com.dnits.guides.inventory;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,8 +18,8 @@ import java.util.Properties;
 
 import jakarta.enterprise.context.ApplicationScoped;
 
-import io.openliberty.guides.inventory.model.InventoryList;
-import io.openliberty.guides.inventory.model.SystemData;
+import com.dnits.guides.inventory.model.InventoryList;
+import com.dnits.guides.inventory.model.SystemData;
 
 // tag::ApplicationScoped[]
 @ApplicationScoped
