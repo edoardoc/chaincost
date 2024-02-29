@@ -12,7 +12,7 @@
 
     <modules>
         <module>clearingcost</module>
-        <module>inventory</module>
+        <module>summer</module>
     </modules>
 
 </project>
