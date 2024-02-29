@@ -10,12 +10,13 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 @RequestScoped
-@Path("/costs")
+@Path("/")
 public class ClearingcostResource {
 
   @Inject
@@ -27,6 +28,26 @@ public class ClearingcostResource {
     return manager.list();
   }
 
+  @GET
+  @Path("/{country}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response getClearingcostForCountry(@PathParam("country") String country) {
+    if (country == null) {
+      return Response.status(Response.Status.NOT_FOUND)
+                     .entity("{ \"error\" : \"Unknown country or the Clearingcost service "
+                     + "may not be running on " + country + "\" }")
+                     .build();
+    }
+
+    ClearingcostData clearingcost = manager.get(country);
+    if (clearingcost == null) {
+      return Response.status(Response.Status.NOT_FOUND)
+                     .entity("{ \"error\" : \"Unknown country or the Clearingcost service "
+                     + "may not be running on " + country + "\" }")
+                     .build();
+    }
+    return Response.ok(clearingcost).build();
+  }
 
   @PUT
   @Consumes(MediaType.APPLICATION_JSON)
@@ -47,23 +68,6 @@ public class ClearingcostResource {
   }
 
   
-//   @GET
-//   @Path("/{country}")
-//   @Produces(MediaType.APPLICATION_JSON)
-//   public Response getPropertiesForHost(@PathParam("country") String country) {
-//     if (country == null) {
-//       return Response.status(Response.Status.NOT_FOUND)
-//                      .entity("{ \"error\" : \"Unknown country or the Clearingcost service "
-//                      + "may not be running on " + country + "\" }")
-//                      .build();
-//     }
-
-//     // Add to summer
-//     manager.add(country, props);
-//     return Response.ok(props).build();
-//   }
-
-
   @POST
   @Path("/reset")
   public void reset() {

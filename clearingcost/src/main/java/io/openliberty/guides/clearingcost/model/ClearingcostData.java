@@ -1,9 +1,10 @@
 package io.openliberty.guides.clearingcost.model;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import jakarta.json.bind.annotation.JsonbProperty;
 
 
-public class ClearingcostData {
+public class ClearingcostData implements Serializable {
     
     @JsonbProperty
     private String country;
@@ -14,6 +15,10 @@ public class ClearingcostData {
     public ClearingcostData() {
       this.country = null;
       this.cost = null;
+    }
+    public ClearingcostData(String country, BigDecimal cost) {
+        this.country = country;
+        this.cost = cost;
     }
 
     public String getCountry() {

@@ -1,6 +1,10 @@
 # chaincost
 Credit Card Cost API exercise 
 
+### TODO: rimuovi web-inf, ecc
+### TODO: rimuovi copyrights
+### TODO: ricorda che se la nazione none è presente, il costo è 10
+
 to run the services in your local java environment for development / debugging, in the main dir:
 ```
 
@@ -36,8 +40,3 @@ endpoint(s) managing clearing cost matrix table
 - Update 
 - Delete
 - Read (returns cost for a country)
-
-
-TODO: rimuovi web-inf, ecc
-TODO: rimuovi copyrights
-
