@@ -17,8 +17,7 @@ public class ClearingcostManager {
 
   private List<ClearingcostData> clearingcosts = Collections.synchronizedList(new ArrayList<>());
 
-  public void add(String country, BigDecimal cost) {
-    ClearingcostData clearingcost = new ClearingcostData(country, cost);
+  public void add(ClearingcostData clearingcost) {
     if (!clearingcosts.contains(clearingcost)) {
       clearingcosts.add(clearingcost);
     }

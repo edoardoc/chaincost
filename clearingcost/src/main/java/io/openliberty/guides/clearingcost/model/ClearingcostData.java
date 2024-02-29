@@ -1,23 +1,35 @@
 package io.openliberty.guides.clearingcost.model;
-
 import java.math.BigDecimal;
+import jakarta.json.bind.annotation.JsonbProperty;
+
 
 public class ClearingcostData {
+    
+    @JsonbProperty
+    private String country;
 
-    private final String country;
-    private final BigDecimal cost;
+    @JsonbProperty
+    private BigDecimal cost;
 
-    public ClearingcostData(String country, BigDecimal cost) {
-      this.country = country;
-      this.cost = cost;
+    public ClearingcostData() {
+      this.country = null;
+      this.cost = null;
     }
 
     public String getCountry() {
       return country;
     }
 
+    public void setCountry(String country) {
+      this.country = country;
+    }
+
     public BigDecimal getCost() {
       return cost;
+    }
+
+    public void setCost(BigDecimal cost) {
+      this.cost = cost;
     }
 
     @Override
