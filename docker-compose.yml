@@ -1,44 +1,14 @@
  version: '3.1'
 
  services:
-   db:
-     image: postgres
-     container_name: db     
-     restart: always
-     environment:
-       POSTGRES_PASSWORD: example
-       POSTGRES_USER: example
-       POSTGRES_DB: test
-     volumes:
-     - ./pgdata:/var/lib/postgresql/data
-
-   system:
-    container_name: system
-    build: system
-    #  depends_on:
-    #    - db
+   clearingcost:
+    container_name: clearingcost
+    build: clearingcost
     ports:
       - 9080:9080
-    #  environment:
-    #    DATASOURCE_URL: jdbc:postgresql://db:5432/test
-    #    DATASOURCE_USERNAME: example
-    #    DATASOURCE_PASSWORD: example
-   inventory:
-    container_name: inventory
-    build: inventory
-    #  depends_on:
-    #    - db
+   summer:
+    container_name: summer
+    build: summer
     ports:
       - 9081:9081
-    #  environment:
-    #    DATASOURCE_URL: jdbc:postgresql://db:5432/test
-    #    DATASOURCE_USERNAME: example
-    #    DATASOURCE_PASSWORD: example
-
-  #  buildchain:
-  #    image: gradle:7.3.3-jdk17
-  #    user: gradle     
-  #    volumes:
-  #      - ./chain-app:/home/gradle/project
-  #    working_dir: /home/gradle/project
-  #    command: gradle build --no-daemon
+    
