@@ -34,7 +34,7 @@ public class SummerEndpointIT {
 
     private static String invUrl;
     private static String sysUrl;
-    private static String systemServiceIp;
+    private static String ClearingcostServiceIp;
 
     private static Client client;
 
@@ -44,9 +44,7 @@ public class SummerEndpointIT {
         String invServPort = System.getProperty("summer.http.port");
         String sysServPort = System.getProperty("clearingcost.http.port");
 
-        // tag::systemServiceIp[]
-        systemServiceIp = System.getProperty("system.ip");
-        // end::systemServiceIp[]
+        ClearingcostServiceIp = System.getProperty("clearingcost.ip");
 
         invUrl = "http://localhost" + ":" + invServPort + "/summer/systems/";
         sysUrl = "http://localhost" + ":" + sysServPort + "/clearingcost/properties/";
@@ -98,12 +96,12 @@ public class SummerEndpointIT {
         int expected = 1;
         int actual = obj.getInt("total");
         assertEquals(expected, actual,
-                        "The summer should have one entry for " + systemServiceIp);
+                        "The summer should have one entry for " + ClearingcostServiceIp);
 
         boolean serviceExists = obj.getJsonArray("systems").getJsonObject(0)
-                        .get("hostname").toString().contains(systemServiceIp);
+                        .get("hostname").toString().contains(ClearingcostServiceIp);
         assertTrue(serviceExists,
-                        "A host was registered, but it was not " + systemServiceIp);
+                        "A host was registered, but it was not " + ClearingcostServiceIp);
 
         response.close();
     }
@@ -127,12 +125,12 @@ public class SummerEndpointIT {
 
         String osNameFromSummer = jsonFromSummer.getString("os.name");
         String osNameFromSystem = jsonFromSystem.getString("os.name");
-        this.assertProperty("os.name", systemServiceIp, osNameFromSystem,
+        this.assertProperty("os.name", ClearingcostServiceIp, osNameFromSystem,
                         osNameFromSummer);
 
         String userNameFromSummer = jsonFromSummer.getString("user.name");
         String userNameFromSystem = jsonFromSystem.getString("user.name");
-        this.assertProperty("user.name", systemServiceIp, userNameFromSystem,
+        this.assertProperty("user.name", ClearingcostServiceIp, userNameFromSystem,
                         userNameFromSummer);
 
         invResponse.close();
@@ -188,7 +186,7 @@ public class SummerEndpointIT {
         this.assertResponse(sysUrl, response);
         response.close();
 
-        Response targetResponse = client.target(invUrl + systemServiceIp).request()
+        Response targetResponse = client.target(invUrl + ClearingcostServiceIp).request()
                         .get();
 
         targetResponse.close();

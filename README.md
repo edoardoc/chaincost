@@ -25,13 +25,12 @@ mvn -pl inventory liberty:devc # runs in docker
 mvn -pl clearingcost liberty:devc # runs in docker
 
 ```
-the data storage should be per microservice!
-(or not)
+the data storage is a serialized map, internal to the microservice clearingcost
 
 # MSSAPI "Microservices API"
 
 ```
-curl -Ss -X POST http://localhost:9081/api/v1/payment-cards-cost -H "content-type:application/json" --data-raw '{"card_number": "12345678910111213141516"}'
+curl -Ss -X POST http://localhost:9081/summer/api/v1/payment-cards-cost -d "card_number=12345678910111213141516"
 ```
 
 

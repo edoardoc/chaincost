@@ -22,7 +22,10 @@ public class ClearingCostClient {
 
     @Inject
     @ConfigProperty(name = "clearingcost.http.port", defaultValue = "9080")
-    String systemHttpPort;
+    String clearingcostHttpPort;
+    @Inject
+    @ConfigProperty(name = "clearingcost.ip", defaultValue = "localhost")
+    String clearingcostIP;
 
     // Wrapper function that gets properties
     public Properties getCost(String countrycode) {
@@ -43,8 +46,8 @@ public class ClearingCostClient {
     // Method that creates the client builder
     private Builder getBuilder(String countrycode, Client client) throws Exception {
         URI uri = new URI(
-                      PROTOCOL, null, countrycode, Integer.valueOf(systemHttpPort),
-                      CLEARING_COST, null, null);
+                      PROTOCOL, null, clearingcostIP, Integer.valueOf(clearingcostHttpPort),
+                      CLEARING_COST + "/" + countrycode, null, null);
         String urlString = uri.toString();
         Builder builder = client.target(urlString).request();
         builder.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON);

@@ -36,8 +36,8 @@ public class SummerResource {
     Properties props = clearingCostClient.getCost(country);
     if (props == null) {
       return Response.status(Response.Status.NOT_FOUND)
-                     .entity("{ \"error\" : \"Unknown hostname or the system service "
-                     + "may not be running on BLAH BLAH "  + "\" }")
+                     .entity("{ \"error\" : \"The target system service "
+                     + "may not be running "  + "\" }")
                      .build();
     }
 
