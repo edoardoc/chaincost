@@ -51,22 +51,23 @@ public class SummerResource {
     String bin = cardNumber.substring(0, 6);
     Properties externalProps = externalBinClient.getCard(bin);
 
-/*{
-  "Status": "SUCCESS",
-  "Scheme": "MASTERCARD",
-  "Type": "CREDIT",
-  "Issuer": "COMMONWEALTH BANK OF AUSTRALIA",
-  "CardTier": "STANDARD",
-  "Country": {
-    "A2": "AU",
-    "A3": "AUS",
-    "N3": "036",
-    "ISD": "61",
-    "Name": "Australia",
-    "Cont": "Oceania"
-  }, 
+/*
+// {
+//   "Status": "SUCCESS",
+//   "Scheme": "MASTERCARD",
+//   "Type": "CREDIT",
+//   "Issuer": "COMMONWEALTH BANK OF AUSTRALIA",
+//   "CardTier": "STANDARD",
+//   "Country": {
+//     "A2": "AU",
+//     "A3": "AUS",
+//     "N3": "036",
+//     "ISD": "61",
+//     "Name": "Australia",
+//     "Cont": "Oceania"
+//   }, 
   retrieving the country code from the response
-  */
+
   String country = externalProps.getProperty("Country.A2");
 
   return Response.ok(externalProps).build();
