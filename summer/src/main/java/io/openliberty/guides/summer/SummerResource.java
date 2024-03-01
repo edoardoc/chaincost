@@ -13,7 +13,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 @RequestScoped
-@Path("/payment-cards-cost")
+@Path("/api/v1")
 public class SummerResource {
 
   @Inject
@@ -23,7 +23,7 @@ public class SummerResource {
   ClearingCostClient clearingCostClient;
 
   @POST
-  @Path("/")
+  @Path("/payment-cards-cost")
   @Produces(MediaType.APPLICATION_JSON)
   public Response getClearingCostForCard(@FormParam("card_number") String cardNumber) {
     // need the first 6 digits of the card number to get the country code from external api

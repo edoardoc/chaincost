@@ -30,6 +30,11 @@ the data storage should be per microservice!
 
 # MSSAPI "Microservices API"
 
+```
+curl -Ss -X POST http://localhost:9081/api/v1/payment-cards-cost -H "content-type:application/json" --data-raw '{"card_number": "12345678910111213141516"}'
+```
+
+
 endpoint /payment-cards-cost 
 1 - the full card number is invoked to the endpoint  
 2 - the system in turns invokes https://bintable.com/get-api with only a part of the number (IIN) and gets the card issuing country (using an internal cache to avoid useless calls) 
