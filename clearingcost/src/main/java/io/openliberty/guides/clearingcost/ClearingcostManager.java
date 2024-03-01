@@ -31,30 +31,33 @@ public class ClearingcostManager {
             clearingcosts = (Map<String, BigDecimal>) ois.readObject(); // Cast the result to the appropriate type
         } catch (Exception e) {
             LOGGER.info("******* No serialized file found, using default clearingcosts.");
-            add(new ClearingcostData("us", new BigDecimal("5.0")));
-            add(new ClearingcostData("gr", new BigDecimal("15.0")));
+            store(new ClearingcostData("US", new BigDecimal("5.0")));
+            store(new ClearingcostData("GR", new BigDecimal("15.0")));
         }
     }
 
     
-    public void add(ClearingcostData clearingcost) {
-        clearingcosts.put(clearingcost.getCountry().toUpperCase(), clearingcost.getCost().setScale(2, RoundingMode.HALF_UP));
-        // whenever the cache gets incremented by 10 new clearingcosts, the cache is serialized to the file system
+    public void store(ClearingcostData clearingcost) {
+        clearingcosts.put(clearingcost.getCountry(), clearingcost.getCost().setScale(2, RoundingMode.HALF_UP));
+        // whenever the cache gets incremented by 10 new clearingcosts, is serialized to the file system
         if (clearingcosts.size() % 10 == 0) {
             saveit();
         }
     }
 
     public void remove(String country) {
-        clearingcosts.remove(country.toUpperCase());
+        if (clearingcosts.containsKey(country)) {
+            clearingcosts.remove(country);
+            saveit(); // every delete triggers a save to the file system of the cache
+        }
     }
 
     public ClearingcostData get(String country) {
-        return new ClearingcostData(country.toUpperCase(), clearingcosts.get(country.toUpperCase()));
-    }
-    
-    public void reset() {
-        clearingcosts.clear();
+        if (clearingcosts.containsKey(country)) {
+            return new ClearingcostData(country, clearingcosts.get(country));
+        } else {
+            return null;
+        }
     }
 
     public ClearingcostList list() {

@@ -40,3 +40,23 @@ endpoint(s) managing clearing cost matrix table
 - Update 
 - Delete
 - Read (returns cost for a country)
+
+# GET method on main endpoint
+```
+curl -v http://localhost:9080/clearingcost/|jq
+```
+
+# GET method on main country endpoint
+```
+curl -v http://localhost:9080/clearingcost/gr|jq
+```
+
+# PUT method
+```
+curl -vX PUT http://localhost:9080/clearingcost -H "content-type:application/json" --data-raw '{"country": "fr", "cost": "113"}'
+```
+
+# DELETE method
+```
+curl -vX DELETE http://localhost:9080/clearingcost/GB
+```
