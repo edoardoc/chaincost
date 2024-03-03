@@ -9,13 +9,16 @@ Credit Card Cost API exercise
 Solution based on a MSSAPI "Microservices API" architecture, using Open Liberty java services, with a service for the clearing cost matrix (Clearingcost), a service for the card number lookup (Summer) and a service for the caching of credit card IIN codes (Iincache)
 
 ## Service Summer (API Gateway) 
-### Endpoint /payment-cards-cost 
+Summer is the service that receives the full card number and returns the clearing cost. It is the entry point for the API. It is also responsible for the IIN lookup and the clearing cost lookup.
 
+### Endpoint /payment-cards-cost 
 ```
 curl -Ss -X POST http://localhost:9081/summer/api/v1/payment-cards-cost -d "card_number=517862543698"
 ```
 
 ## Service Clearingcost (Persisted Clearing Cost Matrix table)
+Clearingcost is the service that manages the clearing cost matrix. It is a simple key-value store for the clearing cost of a country, it stores the clearing cost matrix in a serialized map on the filesystem.
+
 ### Endpoint(s) managing the clearing cost matrix table
 The data storage for the clearing cost matrix is a serialized map, internal to the microservice clearingcost
 - List (returns all the clearing cost matrix)
@@ -46,6 +49,8 @@ curl -v http://localhost:9080/clearingcost/gr|jq
 
 
 ## Service IINCache (Persisted cache of IIN's from external provider)
+Iincache is the service that manages the cache of IIN's. It is a simple key-value store for the IIN's and their alpha2 country code. Its purpose is to avoid unnecessary calls to the external provider, it stores the IIN's and their alpha2 country code in a serialized map.
+
 ### Endpoint(s) managing iincache
 - Create (new iin <--> alpha2 mapping)
 - Delete
@@ -66,25 +71,33 @@ curl -v http://localhost:9082/iincache/51786254|jq
 curl -vX DELETE http://localhost:9082/iincache/517862543698
 ```
 
-### TODO: ritesta docker
 
-to run the services in your local java environment for development / debugging, in the main dir:
+# Build and Run
+To run the services in your local java environment for development / debugging, in the main dir:
+
+```
+mvn -pl summer liberty:run  # it will run on port 9081
+mvn -pl clearingcost liberty:run # port 9080
+mvn -pl iincache liberty:run # port 9082
 ```
 
-mvn -pl summer liberty:run
-mvn -pl clearingcost liberty:run
+To run the services in docker, in the main dir:
 
+```
 mvn package # to build the war
 docker-compose up # to start
 ```
 
 to run a service so that you can change the code
-
 ```
 mvn -pl summer liberty:dev
 mvn -pl clearingcost liberty:dev
+mvn -pl iincache liberty:dev
+```
 
-mvn -pl summer liberty:devc # runs in docker
-mvn -pl clearingcost liberty:devc # runs in docker
-
+to run a service in docker so that you can change the code
+```
+mvn -pl summer liberty:devc # runs development in docker
+mvn -pl iincache liberty:devc # runs development in docker
+mvn -pl clearingcost liberty:devc # runs development in docker
 ```
