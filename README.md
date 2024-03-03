@@ -67,7 +67,6 @@ curl -vX DELETE http://localhost:9082/iincache/517862543698
 ```
 
 ### TODO: ritesta docker
-### TODO: rimetti il databin che vogliono
 
 to run the services in your local java environment for development / debugging, in the main dir:
 ```

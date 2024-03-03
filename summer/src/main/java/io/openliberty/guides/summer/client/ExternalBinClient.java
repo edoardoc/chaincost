@@ -22,10 +22,10 @@ import jakarta.ws.rs.core.Response.Status;
 public class ExternalBinClient {
   private static final Logger logger = Logger.getLogger(SummerResource.class.getName());
 
-  private final String EXTERNAL_BIN_HOST = "data.handyapi.com";
+  private final String EXTERNAL_BIN_HOST = "lookup.binlist.net";
   private final String EXTERNAL_BIN_PROTOCOL = "https";
   private final int EXTERNAL_BIN_PORT = 443;
-  private final String EXTERNAL_BIN_QUERY = "/bin/";
+  private final String EXTERNAL_BIN_QUERY = "/";
 
     // Wrapper function that gets the response and returns as properties
     public String getCard(String bin) throws Exception {
@@ -49,6 +49,7 @@ public class ExternalBinClient {
         String urlString = uri.toString();
         Builder builder = client.target(urlString).request();
         builder.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON);
+        builder.header("Accept-Version", "3"); // for the binlist API only
         return builder;
     }
 

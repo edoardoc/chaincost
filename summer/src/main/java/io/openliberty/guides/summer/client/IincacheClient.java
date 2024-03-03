@@ -34,28 +34,28 @@ public class IincacheClient {
 
     // Wrapper function that gets properties
     public Properties getCountry(String iincode) throws Exception {
-        Properties properties = null;
-        Client client = ClientBuilder.newClient();
-        try {
-            Builder builder = getBuilder(iincode, client);
-            properties = getIincacheHelper(builder);
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            client.close();
-        }
-        return properties;
+      Properties properties = null;
+      Client client = ClientBuilder.newClient();
+      try {
+          Builder builder = getBuilder(iincode, client);
+          properties = getIincacheHelper(builder);
+      } catch (Exception e) {
+          throw e;
+      } finally {
+          client.close();
+      }
+      return properties;
     }
 
     // Method that creates the client builder
     private Builder getBuilder(String iincode, Client client) throws Exception {
-        URI uri = new URI(
-                      PROTOCOL, null, iincacheIP, Integer.valueOf(iincacheHttpPort),
-                      IIN_CACHE + "/" + iincode, null, null);
-        String urlString = uri.toString();
-        Builder builder = client.target(urlString).request();
-        builder.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON);
-        return builder;
+      URI uri = new URI(
+                    PROTOCOL, null, iincacheIP, Integer.valueOf(iincacheHttpPort),
+                    IIN_CACHE + "/" + iincode, null, null);
+      String urlString = uri.toString();
+      Builder builder = client.target(urlString).request();
+      builder.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON);
+      return builder;
     }
     public void saveCountry(String iincode, String country) throws Exception {
       Client client = ClientBuilder.newClient();
@@ -71,16 +71,16 @@ public class IincacheClient {
     }
 
     private Properties getIincacheHelper(Builder builder) throws CacheNotFoundException {
-        Response response = builder.get();
-        if (response.getStatus() == Status.OK.getStatusCode()) {
-            return response.readEntity(Properties.class);
-        } else if (response.getStatus() == Status.NOT_FOUND.getStatusCode()) {
-            // if the response is not found, means that the item is not in the cache,
-            // so we return null and throw an exception CachenotfoundException
-            throw new CacheNotFoundException("Item not found in cache");
-        } else {
-          logger.severe("getIincacheHelper Response Status is not OK.");
-          return null;
-        }
+      Response response = builder.get();
+      if (response.getStatus() == Status.OK.getStatusCode()) {
+          return response.readEntity(Properties.class);
+      } else if (response.getStatus() == Status.NOT_FOUND.getStatusCode()) {
+          // if the response is not found, it means that the item is not in the cache,
+          // so we return null and throw an exception CachenotfoundException
+          throw new CacheNotFoundException("Item not found in cache");
+      } else {
+        logger.severe("getIincacheHelper Response Status is not OK.");
+        return null;
+      }
     }
 }
