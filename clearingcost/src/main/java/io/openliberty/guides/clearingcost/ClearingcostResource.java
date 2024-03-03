@@ -40,7 +40,7 @@ public class ClearingcostResource {
         country = country.toUpperCase();
         ClearingcostData clearingcost = manager.get(country);
         if (clearingcost == null) {
-            clearingcost = new ClearingcostData(country, new BigDecimal("10.0"));   // the cache has no match, return $10, other
+            clearingcost = new ClearingcostData(country, new BigDecimal("10.0"));   // the matrix has no match, return $10, other
         }
         
         return Response.ok(clearingcost).build();

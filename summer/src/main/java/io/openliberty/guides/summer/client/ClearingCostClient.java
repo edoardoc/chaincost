@@ -60,7 +60,7 @@ public class ClearingCostClient {
         if (response.getStatus() == Status.OK.getStatusCode()) {
             return response.readEntity(Properties.class);
         } else {
-            System.err.println("Response Status is not OK.");
+            System.err.println("getClearingcostHelper Response Status is not OK.");
             return null;
         }
     }

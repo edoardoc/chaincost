@@ -17,7 +17,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 public class ExternalBinClient {
 
     @Inject
-    @ConfigProperty(name = "externalbin.host", defaultValue = "data.handyapi.com")
+    @ConfigProperty(name = "externalbin.host", defaultValue = "lookup.binlist.net")
     String externalbinHost;
     @Inject
     @ConfigProperty(name = "externalbin.protocol", defaultValue = "https")
@@ -26,7 +26,7 @@ public class ExternalBinClient {
     @ConfigProperty(name = "externalbin.port", defaultValue = "443")
     String externalbinPort;
     @Inject
-    @ConfigProperty(name = "externalbin.query", defaultValue = "/bin")
+    @ConfigProperty(name = "externalbin.query", defaultValue = "/")
     String externalbinQuery;
 
     // Wrapper function that gets the response and returns as properties
@@ -48,8 +48,9 @@ public class ExternalBinClient {
     private Builder getBuilder(String bin, Client client) throws Exception {
         URI uri = new URI(
                       externalbinProtocol, null, externalbinHost, 443,
-                      externalbinQuery + "/" + bin, null, null);
+                      externalbinQuery + bin, null, null);
         String urlString = uri.toString();
+        System.err.println("urlString is " + urlString);
         Builder builder = client.target(urlString).request();
         builder.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON);
         return builder;
@@ -61,7 +62,7 @@ public class ExternalBinClient {
         if (response.getStatus() == Status.OK.getStatusCode()) {
             return response.readEntity(Properties.class);
         } else {
-            System.err.println("Response Status is not OK.");
+            System.err.println("getCardHelper Response Status is not OK.");
             return null;
         }
     }

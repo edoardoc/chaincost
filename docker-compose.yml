@@ -6,9 +6,16 @@
     build: clearingcost
     ports:
       - 9080:9080
+   iincache:
+    container_name: iincache
+    build: iincache
+    ports:
+      - 9082:9082
    summer:
     container_name: summer
     build: summer
     ports:
       - 9081:9081
-    
+    depends_on:
+      - clearingcost
+      - iincache

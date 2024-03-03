@@ -18,10 +18,10 @@
         <maven.compiler.target>11</maven.compiler.target>
         <clearingcost.ip>localhost</clearingcost.ip>
         <clearingcost.http.port>9080</clearingcost.http.port>
-        <externalbin.host>data.handyapi.com</externalbin.host>
+        <externalbin.host>lookup.binlist.net</externalbin.host>
         <externalbin.protocol>https</externalbin.protocol>
         <externalbin.port>443</externalbin.port>
-        <externalbin.query>/bin</externalbin.query>
+        <externalbin.query>/</externalbin.query>
 
         <!-- Liberty configuration -->
         <liberty.var.default.http.port>9081</liberty.var.default.http.port>

@@ -50,6 +50,20 @@ curl -vX DELETE http://localhost:9080/clearingcost/GB
 - Delete
 - Read (returns alpha2 for iin)
 
+### PUT method stores IIN data in cache
+```
+curl -vX PUT http://localhost:9080/iincache -H "content-type:application/json" --data-raw '{"iin": "517862543698", "alpha2": "au"}'
+```
+
+### GET method on main IIN endpoint
+```
+curl -v http://localhost:9080/iincache/517862543698|jq
+```
+
+### DELETE method
+```
+curl -vX DELETE http://localhost:9080/iincache/517862543698
+```
 
 ### TODO: rimuovi copyrights
 ### TODO: ritesta docker
