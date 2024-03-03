@@ -16,12 +16,12 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        
         <clearingcost.ip>localhost</clearingcost.ip>
         <clearingcost.http.port>9080</clearingcost.http.port>
-        <externalbin.host>lookup.binlist.net</externalbin.host>
-        <externalbin.protocol>https</externalbin.protocol>
-        <externalbin.port>443</externalbin.port>
-        <externalbin.query>/</externalbin.query>
+        
+        <iincache.ip>localhost</iincache.ip>
+        <iincache.http.port>9082</iincache.http.port>
 
         <!-- Liberty configuration -->
         <liberty.var.default.http.port>9081</liberty.var.default.http.port>
@@ -104,7 +104,10 @@
                     <systemPropertyVariables>
                         <clearingcost.ip>${clearingcost.ip}</clearingcost.ip>
                         <clearingcost.http.port>${clearingcost.http.port}</clearingcost.http.port>
-                        <summer.http.port>${liberty.var.default.http.port}</summer.http.port>
+                        
+                        <iincache.ip>${iincache.ip}</iincache.ip>
+                        <iincache.http.port>${iincache.http.port}</iincache.http.port>
+                        
                     </systemPropertyVariables>
                 </configuration>
             </plugin>

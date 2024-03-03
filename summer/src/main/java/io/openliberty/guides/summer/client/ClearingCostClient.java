@@ -29,6 +29,8 @@ public class ClearingCostClient {
 
     // Wrapper function that gets properties
     public Properties getCost(String countrycode) {
+        System.err.println("getCost called with countrycode " + countrycode);
+
         Properties properties = null;
         Client client = ClientBuilder.newClient();
         try {

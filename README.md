@@ -57,17 +57,19 @@ curl -vX PUT http://localhost:9080/iincache -H "content-type:application/json" -
 
 ### GET method on main IIN endpoint
 ```
-curl -v http://localhost:9080/iincache/517862543698|jq
+curl -v http://localhost:9082/iincache/517862543698|jq
 ```
 
 ### DELETE method
 ```
-curl -vX DELETE http://localhost:9080/iincache/517862543698
+curl -vX DELETE http://localhost:9082/iincache/517862543698
 ```
 
 ### TODO: rimuovi copyrights
 ### TODO: ritesta docker
 ### TODO: ricorda che se la nazione none è presente, il costo è 10
+### TODO: togli tutti i system.println
+
 
 to run the services in your local java environment for development / debugging, in the main dir:
 ```
