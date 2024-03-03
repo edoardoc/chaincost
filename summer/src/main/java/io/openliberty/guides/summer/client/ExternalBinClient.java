@@ -2,7 +2,9 @@ package io.openliberty.guides.summer.client;
 
 import java.io.StringReader;
 import java.net.URI;
+import java.util.logging.Logger;
 
+import io.openliberty.guides.summer.SummerResource;
 import io.openliberty.guides.summer.client.utils.CardNotFoundException;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.json.Json;
@@ -18,6 +20,7 @@ import jakarta.ws.rs.core.Response.Status;
 
 @RequestScoped
 public class ExternalBinClient {
+  private static final Logger logger = Logger.getLogger(SummerResource.class.getName());
 
   private final String EXTERNAL_BIN_HOST = "data.handyapi.com";
   private final String EXTERNAL_BIN_PROTOCOL = "https";
@@ -40,12 +43,10 @@ public class ExternalBinClient {
     }
 
     private Builder getBuilder(String bin, Client client) throws Exception {
-        System.err.println("externalbinHost is " + EXTERNAL_BIN_HOST);
         URI uri = new URI(
                       EXTERNAL_BIN_PROTOCOL, null, EXTERNAL_BIN_HOST, EXTERNAL_BIN_PORT,
                       EXTERNAL_BIN_QUERY + bin, null, null);
         String urlString = uri.toString();
-        System.err.println("urlString is " + urlString);
         Builder builder = client.target(urlString).request();
         builder.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON);
         return builder;
@@ -57,23 +58,20 @@ public class ExternalBinClient {
         Response response = builder.get();
         if (response.getStatus() == Status.OK.getStatusCode()) {
           String JSONResponse = response.readEntity(String.class);
-          System.err.println("getCardHelper Response: " + JSONResponse); 
           JsonReader jsonReader = Json.createReader(new StringReader(JSONResponse));
           JsonObject jsonObject = jsonReader.readObject();
           if (response.getStatus() != Status.OK.getStatusCode()) {
-              System.err.println("getCardHelper Response Status is not OK.");
-              throw new CardNotFoundException("Card not found");
+            throw new CardNotFoundException("Card not found");
           }
           try {
             countryTwoLetter = jsonObject.getJsonObject("Country").getString("A2");
           } catch (Exception e) {
-              System.err.println("getCardHelper countryTwoLetter not accessible");
               throw new CardNotFoundException("Card not found");
           }
           return countryTwoLetter;
         } else {
-            System.err.println("getCardHelper Response Status is not OK.");
-            return null;
+          logger.severe("getCardHelper Response Status is not OK.");
+          return null;
         }
     }
 }

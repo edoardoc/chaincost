@@ -51,6 +51,7 @@ public class IINCacheResource {
     if (alpha2.length() != 2) {
       return Response.status(Response.Status.BAD_REQUEST).entity("Country code must be 2 characters").build();
     }
+    alpha2 = alpha2.toUpperCase();
     IINCacheData iinData = new IINCacheData(iin, alpha2);
     try {
       alpha2 = alpha2.toUpperCase();

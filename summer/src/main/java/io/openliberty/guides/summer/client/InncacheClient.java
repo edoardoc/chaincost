@@ -7,12 +7,10 @@ import java.util.logging.Logger;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import io.openliberty.guides.summer.SummerResource;
-import io.openliberty.guides.summer.client.utils.CacheNotFoundException;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
-import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.client.Invocation.Builder;
 import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.MediaType;
@@ -20,27 +18,27 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 
 @RequestScoped
-public class IincacheClient {
+public class InncacheClient {
     private static final Logger logger = Logger.getLogger(SummerResource.class.getName());
-    private final String IIN_CACHE = "/iincache";
+    private final String INN_CACHE = "/inncache";
     private final String PROTOCOL = "http";
 
     @Inject
-    @ConfigProperty(name = "iincache.http.port", defaultValue = "9082")
-    String iincacheHttpPort;
+    @ConfigProperty(name = "inncache.http.port", defaultValue = "9080")
+    String inncacheHttpPort;
     @Inject
-    @ConfigProperty(name = "iincache.ip", defaultValue = "localhost")
-    String iincacheIP;
+    @ConfigProperty(name = "inncache.ip", defaultValue = "localhost")
+    String inncacheIP;
 
     // Wrapper function that gets properties
-    public Properties getCountry(String iincode) throws Exception {
+    public Properties getCountry(String inncode) throws Exception {
         Properties properties = null;
         Client client = ClientBuilder.newClient();
         try {
-            Builder builder = getBuilder(iincode, client);
-            properties = getIincacheHelper(builder);
+            Builder builder = getBuilder(inncode, client);
+            properties = getInncacheHelper(builder);
         } catch (Exception e) {
-            throw e;
+          logger.severe("Exception thrown while getting properties: " + e.getMessage());
         } finally {
             client.close();
         }
@@ -48,38 +46,29 @@ public class IincacheClient {
     }
 
     // Method that creates the client builder
-    private Builder getBuilder(String iincode, Client client) throws Exception {
+    private Builder getBuilder(String inncode, Client client) throws Exception {
         URI uri = new URI(
-                      PROTOCOL, null, iincacheIP, Integer.valueOf(iincacheHttpPort),
-                      IIN_CACHE + "/" + iincode, null, null);
+                      PROTOCOL, null, inncacheIP, Integer.valueOf(inncacheHttpPort),
+                      INN_CACHE + "/" + inncode, null, null);
         String urlString = uri.toString();
         Builder builder = client.target(urlString).request();
         builder.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON);
         return builder;
     }
-    public void saveCountry(String iincode, String country) throws Exception {
-      Client client = ClientBuilder.newClient();
-      try {
-        Builder builder = getBuilder(iincode, client);
-        Response sss = builder.put(Entity.entity(country, MediaType.APPLICATION_JSON));
-        logger.warning("saveCountry RESPONSE = " + sss.getStatus() + " " + sss.readEntity(String.class));
-      } catch (Exception e) {
-        throw e;
-      } finally {
-        client.close();
-      }
-    }
 
-    private Properties getIincacheHelper(Builder builder) throws CacheNotFoundException {
+    // Helper method that processes the request
+    private Properties getInncacheHelper(Builder builder) throws Exception {
         Response response = builder.get();
+        
         if (response.getStatus() == Status.OK.getStatusCode()) {
             return response.readEntity(Properties.class);
         } else if (response.getStatus() == Status.NOT_FOUND.getStatusCode()) {
             // if the response is not found, means that the item is not in the cache,
             // so we return null and throw an exception CachenotfoundException
-            throw new CacheNotFoundException("Item not found in cache");
+            Throwable t = new Throwable("Cache not found");
+            return null;
         } else {
-          logger.severe("getIincacheHelper Response Status is not OK.");
+          logger.severe("getInncacheHelper Response Status is not OK.");
           return null;
         }
     }

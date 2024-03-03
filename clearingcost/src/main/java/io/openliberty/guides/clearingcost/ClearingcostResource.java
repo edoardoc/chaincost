@@ -40,9 +40,14 @@ public class ClearingcostResource {
         country = country.toUpperCase();
         ClearingcostData clearingcost = manager.get(country);
         if (clearingcost == null) {
-            clearingcost = new ClearingcostData(country, new BigDecimal("10.0"));   // the matrix has no match, return $10, other
+          ClearingcostData clearingcostOthers = manager.get("Others");
+          if (clearingcostOthers != null) {
+            clearingcost = new ClearingcostData(country, clearingcostOthers.getCost());
+          } else {
+            // if there is no "Others" in the matrix, return $10
+            clearingcost = new ClearingcostData(country, new BigDecimal("10.0"));
+          }
         }
-        
         return Response.ok(clearingcost).build();
     } catch (Exception e) {
         return Response.status(Response.Status.BAD_REQUEST).entity("Invalid Country code: " + e.getMessage()).build();

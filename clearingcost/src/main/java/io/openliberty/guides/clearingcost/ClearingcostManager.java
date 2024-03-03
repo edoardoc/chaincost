@@ -33,6 +33,8 @@ public class ClearingcostManager {
             LOGGER.info("******* No serialized file found, using default clearingcosts.");
             store(new ClearingcostData("US", new BigDecimal("5.0")));
             store(new ClearingcostData("GR", new BigDecimal("15.0")));
+            store(new ClearingcostData("Others", new BigDecimal("10.0")));
+            saveit();
         }
     }
 

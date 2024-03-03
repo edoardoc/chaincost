@@ -3,6 +3,7 @@ package io.openliberty.guides.summer;
 import java.util.Properties;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 
@@ -31,9 +32,6 @@ public class SummerResource {
   private static long nextAvailableTime = 0;
 
   @Inject
-  SummerManager manager;
-
-  @Inject
   ClearingCostClient clearingCostClient;
   
   @Inject
@@ -53,9 +51,18 @@ public class SummerResource {
     // consult iincache to get the country code for the card (if is in cache)
     try {
       Properties props = iincacheClient.getCountry(bin);
-      System.err.println("MATCH! props is " + props);
+      logger.info("MATCH! props is " + props);
       if (props != null) {
-        return Response.ok(props).build();  // match!
+        country = props.getProperty("alpha2");
+
+        Properties props2 = clearingCostClient.getCost(country);
+        if (props2 == null) {
+          return Response.status(Response.Status.NOT_FOUND)
+                         .entity("{ \"error\" : \"The target system service ClearingCost "
+                         + "may not be running "  + "\" }")
+                         .build();
+        }
+        return Response.ok(props2).build(); 
       }
     } catch (CacheNotFoundException e) {
       // no cache found, continue with the next step
@@ -86,6 +93,14 @@ public class SummerResource {
       } catch (Exception e1) {
         logger.warning("Failed to save country in cache: " + e1.getMessage());
       }
+
+      // update the rate limit
+      // Increment request count and schedule next available time
+      requestCount.incrementAndGet();
+      if (requestCount.get() >= 5) {
+          nextAvailableTime = currentTime + TimeUnit.HOURS.toMillis(1);
+          scheduler.schedule(() -> requestCount.set(0), 1, TimeUnit.HOURS);
+      }      
       
     } catch (Exception e) {
         return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
@@ -98,12 +113,10 @@ public class SummerResource {
     Properties props = clearingCostClient.getCost(country);
     if (props == null) {
       return Response.status(Response.Status.NOT_FOUND)
-                     .entity("{ \"error\" : \"The target system service "
+                     .entity("{ \"error\" : \"The target system service ClearingCost "
                      + "may not be running "  + "\" }")
                      .build();
     }
-
     return Response.ok(props).build();
-
   }
 }
