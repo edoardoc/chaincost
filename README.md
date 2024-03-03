@@ -44,6 +44,11 @@ curl -vX PUT http://localhost:9080/clearingcost -H "content-type:application/jso
 curl -vX DELETE http://localhost:9080/clearingcost/GB
 ```
 
+## Service IINCache (Persisted cache of IIN's from external provider)
+### Endpoint(s) managing iincache
+- Create (new iin <--> alpha2 mapping)
+- Delete
+- Read (returns alpha2 for iin)
 
 
 ### TODO: rimuovi copyrights

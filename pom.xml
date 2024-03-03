@@ -11,8 +11,9 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>clearingcost</module>
-        <module>summer</module>
+			<module>clearingcost</module>
+			<module>iincache</module>
+			<module>summer</module>
     </modules>
 
 </project>
