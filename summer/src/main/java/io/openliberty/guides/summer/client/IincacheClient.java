@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-import io.openliberty.guides.summer.SummerResource;
 import io.openliberty.guides.summer.client.utils.CacheNotFoundException;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
@@ -21,7 +20,7 @@ import jakarta.ws.rs.core.Response.Status;
 
 @RequestScoped
 public class IincacheClient {
-    private static final Logger logger = Logger.getLogger(SummerResource.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(IincacheClient.class.getName());
     private final String IIN_CACHE = "/iincache";
     private final String PROTOCOL = "http";
 
@@ -62,7 +61,7 @@ public class IincacheClient {
       try {
         Builder builder = getBuilder(iincode, client);
         Response sss = builder.put(Entity.entity(country, MediaType.APPLICATION_JSON));
-        logger.warning("saveCountry RESPONSE = " + sss.getStatus() + " " + sss.readEntity(String.class));
+        LOGGER.warning("saveCountry RESPONSE = " + sss.getStatus() + " " + sss.readEntity(String.class));
       } catch (Exception e) {
         throw e;
       } finally {
@@ -79,7 +78,7 @@ public class IincacheClient {
           // so we return null and throw an exception CachenotfoundException
           throw new CacheNotFoundException("Item not found in cache");
       } else {
-        logger.severe("getIincacheHelper Response Status is not OK.");
+        LOGGER.severe("getIincacheHelper Response Status is not OK.");
         return null;
       }
     }

@@ -4,7 +4,6 @@ import java.io.StringReader;
 import java.net.URI;
 import java.util.logging.Logger;
 
-import io.openliberty.guides.summer.SummerResource;
 import io.openliberty.guides.summer.client.utils.CardNotFoundException;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.json.Json;
@@ -20,7 +19,7 @@ import jakarta.ws.rs.core.Response.Status;
 
 @RequestScoped
 public class ExternalBinClient {
-  private static final Logger logger = Logger.getLogger(SummerResource.class.getName());
+  private static final Logger LOGGER = Logger.getLogger(ExternalBinClient.class.getName());
 
   private final String EXTERNAL_BIN_HOST = "lookup.binlist.net";
   private final String EXTERNAL_BIN_PROTOCOL = "https";
@@ -71,7 +70,7 @@ public class ExternalBinClient {
           }
           return countryTwoLetter;
         } else {
-          logger.severe("getCardHelper Response Status is not OK.");
+          LOGGER.severe("getCardHelper Response Status is not OK.");
           return null;
         }
     }

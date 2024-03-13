@@ -24,8 +24,7 @@ import jakarta.ws.rs.core.Response;
 @RequestScoped
 @Path("/api/v1")
 public class SummerResource {
-  // need referendce to logger
-  private static final Logger logger = Logger.getLogger(SummerResource.class.getName());
+  private static final Logger LOGGER = Logger.getLogger(SummerResource.class.getName());
 
   private static final AtomicInteger requestCount = new AtomicInteger(0);
   private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
@@ -51,7 +50,7 @@ public class SummerResource {
     // consult iincache to get the country code for the card (if is in cache)
     try {
       Properties props = iincacheClient.getCountry(bin);
-      logger.info("MATCH! props is " + props);
+      LOGGER.info("MATCH! props is " + props);
       if (props != null) {
         country = props.getProperty("alpha2");
 
@@ -91,7 +90,7 @@ public class SummerResource {
       try {
         iincacheClient.saveCountry(bin, country);
       } catch (Exception e1) {
-        logger.warning("Failed to save country in cache: " + e1.getMessage());
+        LOGGER.warning("Failed to save country in cache: " + e1.getMessage());
       }
 
       // update the rate limit

@@ -1,5 +1,11 @@
 package io.openliberty.guides.summer.client;
 
+import java.net.URI;
+import java.util.Properties;
+import java.util.logging.Logger;
+
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.client.Client;
@@ -9,16 +15,10 @@ import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
-import java.util.Properties;
-import java.util.logging.Logger;
-import java.net.URI;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
-
-import io.openliberty.guides.summer.SummerResource;
 
 @RequestScoped
 public class ClearingCostClient {
-  private static final Logger logger = Logger.getLogger(SummerResource.class.getName());
+  private static final Logger LOGGER = Logger.getLogger(ClearingCostClient.class.getName());
     
   // Constants for building URI to the clearingcost service.
   private final String CLEARING_COST = "/clearingcost";
@@ -40,7 +40,7 @@ public class ClearingCostClient {
           Builder builder = getBuilder(countrycode, client);
           properties = getClearingcostHelper(builder);
       } catch (Exception e) {
-        logger.severe("Exception thrown while getting properties: " + e.getMessage());
+        LOGGER.severe("Exception thrown while getting properties: " + e.getMessage());
       } finally {
           client.close();
       }
@@ -64,7 +64,7 @@ public class ClearingCostClient {
       if (response.getStatus() == Status.OK.getStatusCode()) {
         return response.readEntity(Properties.class);
       } else {
-        logger.severe("getClearingcostHelper Response Status is not OK.");
+        LOGGER.severe("getClearingcostHelper Response Status is not OK.");
         return null;
       }
   }
