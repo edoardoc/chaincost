@@ -29,14 +29,11 @@ public class ExternalBinClient {
     // Wrapper function that gets the response and returns as properties
     public String getCard(String bin) throws Exception {
         String outTwo = null;
-        Client client = ClientBuilder.newClient();
-        try {
+        try (Client client = ClientBuilder.newClient()) {
             Builder builder = getBuilder(bin, client);
             outTwo = getCardHelper(builder);
         } catch (Exception e) {
           throw e;
-        } finally {
-            client.close();
         }
         return outTwo;
     }

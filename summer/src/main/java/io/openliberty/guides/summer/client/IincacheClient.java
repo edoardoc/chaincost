@@ -34,14 +34,11 @@ public class IincacheClient {
     // Wrapper function that gets properties
     public Properties getCountry(String iincode) throws Exception {
       Properties properties = null;
-      Client client = ClientBuilder.newClient();
-      try {
+      try (Client client = ClientBuilder.newClient()) {
           Builder builder = getBuilder(iincode, client);
           properties = getIincacheHelper(builder);
       } catch (Exception e) {
           throw e;
-      } finally {
-          client.close();
       }
       return properties;
     }
@@ -57,15 +54,12 @@ public class IincacheClient {
       return builder;
     }
     public void saveCountry(String iincode, String country) throws Exception {
-      Client client = ClientBuilder.newClient();
-      try {
+      try (Client client = ClientBuilder.newClient()) {
         Builder builder = getBuilder(iincode, client);
         Response sss = builder.put(Entity.entity(country, MediaType.APPLICATION_JSON));
         LOGGER.warning("saveCountry RESPONSE = " + sss.getStatus() + " " + sss.readEntity(String.class));
       } catch (Exception e) {
         throw e;
-      } finally {
-        client.close();
       }
     }
 

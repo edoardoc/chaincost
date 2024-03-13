@@ -55,7 +55,7 @@ public class IINCacheResource {
     IINCacheData iinData = new IINCacheData(iin, alpha2);
     try {
       alpha2 = alpha2.toUpperCase();
-        manager.store(iinData);
+      manager.store(iinData);
     } catch (Exception e) {
       return Response.status(Response.Status.BAD_REQUEST).entity("Error, IINCache Cost was not added: " + e.getMessage()).build();
     } 

@@ -32,17 +32,13 @@ public class ClearingCostClient {
   @ConfigProperty(name = "clearingcost.ip", defaultValue = "localhost")
   String clearingcostIP;
 
-  // Wrapper function that gets properties
   public Properties getCost(String countrycode) {
       Properties properties = null;
-      Client client = ClientBuilder.newClient();
-      try {
+      try (Client client = ClientBuilder.newClient()) {
           Builder builder = getBuilder(countrycode, client);
           properties = getClearingcostHelper(builder);
       } catch (Exception e) {
         LOGGER.severe("Exception thrown while getting properties: " + e.getMessage());
-      } finally {
-          client.close();
       }
       return properties;
   }
