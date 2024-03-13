@@ -16,6 +16,11 @@
     build: summer
     ports:
       - 9081:9081
+    environment:
+      iincache.ip: iincache
+      iincache.http.port: 9082
+      clearingcost.ip: clearingcost
+      clearingcost.http.port: 9080
     depends_on:
       - clearingcost
       - iincache
