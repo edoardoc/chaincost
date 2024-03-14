@@ -12,6 +12,7 @@ import io.openliberty.guides.summer.client.ExternalBinClient;
 import io.openliberty.guides.summer.client.IincacheClient;
 import io.openliberty.guides.summer.client.utils.CacheNotFoundException;
 import io.openliberty.guides.summer.client.utils.CardNotFoundException;
+import io.openliberty.guides.summer.client.utils.ExternalBinServiceExhaustedException;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.FormParam;
@@ -50,8 +51,8 @@ public class SummerResource {
     // consult iincache to get the country code for the card (if is in cache)
     try {
       Properties props = iincacheClient.getCountry(bin);
-      LOGGER.info("MATCH! props is " + props);
       if (props != null) {
+        LOGGER.info("MATCH! props is " + props);
         country = props.getProperty("alpha2");
 
         Properties props2 = clearingCostClient.getCost(country);
@@ -72,9 +73,13 @@ public class SummerResource {
           // delay the request until the next available time
           Thread.sleep(nextAvailableTime - currentTime);
       }
-
       try {
-        country = externalBinClient.getCard(bin);
+        country = externalBinClient.getCardCountry(bin);
+      } catch (ExternalBinServiceExhaustedException ef) {
+        return Response.status(Response.Status.NOT_FOUND)
+                       .entity("{ \"error\" : \"ExternalBinClient service ratio exceeded: "
+                       + ef.getMessage() + "\" }")
+                       .build();
       } catch (CardNotFoundException ef) {
         return Response.status(Response.Status.NOT_FOUND)
                        .entity("{ \"error\" : \"The card could not be found by "
@@ -93,8 +98,7 @@ public class SummerResource {
         LOGGER.warning("Failed to save country in cache: " + e1.getMessage());
       }
 
-      // update the rate limit
-      // Increment request count and schedule next available time
+      // update the rate limit: Increment request count and schedule next available time
       requestCount.incrementAndGet();
       if (requestCount.get() >= 5) {
           nextAvailableTime = currentTime + TimeUnit.HOURS.toMillis(1);

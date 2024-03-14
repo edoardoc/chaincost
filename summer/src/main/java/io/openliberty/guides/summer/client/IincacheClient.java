@@ -31,14 +31,11 @@ public class IincacheClient {
     @ConfigProperty(name = "iincache.ip", defaultValue = "localhost")
     String iincacheIP;
 
-    // Wrapper function that gets properties
     public Properties getCountry(String iincode) throws Exception {
       Properties properties = null;
       try (Client client = ClientBuilder.newClient()) {
           Builder builder = getBuilder(iincode, client);
           properties = getIincacheHelper(builder);
-      } catch (Exception e) {
-          throw e;
       }
       return properties;
     }
@@ -53,13 +50,14 @@ public class IincacheClient {
       builder.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON);
       return builder;
     }
+
     public void saveCountry(String iincode, String country) throws Exception {
       try (Client client = ClientBuilder.newClient()) {
         Builder builder = getBuilder(iincode, client);
-        Response sss = builder.put(Entity.entity(country, MediaType.APPLICATION_JSON));
-        LOGGER.warning("saveCountry RESPONSE = " + sss.getStatus() + " " + sss.readEntity(String.class));
-      } catch (Exception e) {
-        throw e;
+        Response saveC = builder.put(Entity.entity(country, MediaType.APPLICATION_JSON));
+        if (saveC.getStatus() != Status.OK.getStatusCode()) {
+          LOGGER.severe("saveCountry Response Status was not OK, could not save the country " + country + " for iincode " + iincode + " in the cache" );
+        }
       }
     }
 

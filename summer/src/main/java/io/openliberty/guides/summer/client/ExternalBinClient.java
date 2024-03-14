@@ -5,6 +5,7 @@ import java.net.URI;
 import java.util.logging.Logger;
 
 import io.openliberty.guides.summer.client.utils.CardNotFoundException;
+import io.openliberty.guides.summer.client.utils.ExternalBinServiceExhaustedException;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
@@ -26,14 +27,11 @@ public class ExternalBinClient {
   private final int EXTERNAL_BIN_PORT = 443;
   private final String EXTERNAL_BIN_QUERY = "/";
 
-    // Wrapper function that gets the response and returns as properties
-    public String getCard(String bin) throws Exception {
+    public String getCardCountry(String bin) throws Exception {
         String outTwo = null;
         try (Client client = ClientBuilder.newClient()) {
             Builder builder = getBuilder(bin, client);
             outTwo = getCardHelper(builder);
-        } catch (Exception e) {
-          throw e;
         }
         return outTwo;
     }
@@ -49,25 +47,28 @@ public class ExternalBinClient {
         return builder;
     }
 
-    // Helper method that processes the request
     private String getCardHelper(Builder builder) throws Exception {
       String countryTwoLetter = null;
         Response response = builder.get();
+        String JSONResponse = response.readEntity(String.class);
         if (response.getStatus() == Status.OK.getStatusCode()) {
-          String JSONResponse = response.readEntity(String.class);
           JsonReader jsonReader = Json.createReader(new StringReader(JSONResponse));
           JsonObject jsonObject = jsonReader.readObject();
           if (response.getStatus() != Status.OK.getStatusCode()) {
             throw new CardNotFoundException("Card not found");
           }
           try {
-            countryTwoLetter = jsonObject.getJsonObject("Country").getString("A2");
+            countryTwoLetter = jsonObject.getJsonObject("country").getString("alpha2");
           } catch (Exception e) {
-              throw new CardNotFoundException("Card not found");
+            LOGGER.warning("getCardHelper reports Card not found with response: " + response.getStatus() + " " + JSONResponse);
+            throw new CardNotFoundException("Card not found");
           }
           return countryTwoLetter;
+        } else if (response.getStatus() == 429) {
+          throw new ExternalBinServiceExhaustedException("Card not found");
+
         } else {
-          LOGGER.severe("getCardHelper Response Status is not OK.");
+          LOGGER.severe("getCardHelper Response Status is not OK, received: " + response.getStatus() + " " + JSONResponse);
           return null;
         }
     }
