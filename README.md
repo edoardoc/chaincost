@@ -9,7 +9,9 @@ Credit Card Cost API exercise
 Solution based on a MSSAPI "Microservices API" architecture, using Open Liberty java services, with a service for the clearing cost matrix (Clearingcost), a service for the card number lookup (Summer) and a service for the caching of credit card IIN codes (Iincache)
 
 ## Service Summer (API Gateway) 
-Summer is the service that receives the full card number and returns the clearing cost. It is the entry point for the API. It is also responsible for the IIN lookup and the clearing cost lookup.
+Summer is the service that receives the full card number and returns the clearing cost. It is the entry point for the API. It is also responsible for the IIN lookup and the clearing cost lookup, and the invoking of Fetcher to fetch the IIN data from the external provider.
+
+
 
 ### Endpoint /payment-cards-cost 
 ```
